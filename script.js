@@ -5,19 +5,62 @@ const sub = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const division = (a, b) => a / b; 
 
-let first = Number(prompt("Please Enter a: "));
-let next = Number(prompt("Please Enter b: "));
+// let first = Number(prompt("Please Enter a: "));
+// let next = Number(prompt("Please Enter b: "));
+// let opertor = prompt("Please Enter the Operator you want to use: ")
 
-function operate () {
-    
+function operate (a, b, operator) {
+    if (operator === "+") {
+        return add(a, b);
+    } else if (operator === "-") {
+        return sub(a, b);
+    } else if (operator === "*") {
+        return multiply(a, b);
+    } else if (operator === "/") {
+        return division(a, b);
+    } else {
+        return "Please enter valid operator!";
+    }
 }
 
-let addision = add(first, next);
-let substraction = sub(first, next);
-let multiplication = multiply(first, next);
-let divide = division(first, next);
+// let calculate = operate(first, next, opertor);
+// console.log(calculate);
 
-console.log(addision);
-console.log(substraction);
-console.log(multiplication);
-console.log(divide);
+const buttonLayout = [
+    '9', '8', '7', '/',
+    '6', '5', '4', '*',
+    '3', '2', '1', '-',
+    '0', '.', '=', '+',
+    'C'
+];
+
+const calculatorStyle = document.querySelector(".btnContainer");
+buttonLayout.forEach((lable) => {
+    const button = document.createElement("button");
+    button.textContent = lable;
+    button.classList.add("btn");
+
+    if (lable === "/" || lable === "*" || lable === "-" || lable === "+"){
+        button.classList.add("operators");
+    } else if (lable === "C") {
+        button.classList.add("clear");
+    } else if (lable === "=") {
+        button.classList.add("equals");
+    } else if (lable === ".") {
+        button.classList.add("point");
+    } else { button.classList.add("numbers"); }
+    
+    calculatorStyle.appendChild(button);
+})
+
+
+//Just for backup!
+// let addision = add(first, next);
+// let substraction = sub(first, next);
+// let multiplication = multiply(first, next);
+// let divide = division(first, next);
+
+// console.log(addision);
+// console.log(substraction);
+// console.log(multiplication);
+// console.log(divide);
