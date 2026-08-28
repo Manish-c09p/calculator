@@ -26,6 +26,9 @@ function operate (a, b, operator) {
 // let calculate = operate(first, next, opertor);
 // console.log(calculate);
 
+let currentInput = "";
+let currentOperator = "";
+
 const buttonLayout = [
     '9', '8', '7', '/',
     '6', '5', '4', '*',
@@ -35,6 +38,7 @@ const buttonLayout = [
 ];
 
 const calculatorStyle = document.querySelector(".btnContainer");
+calculatorStyle.textContent = '';
 buttonLayout.forEach((lable) => {
     const button = document.createElement("button");
     button.textContent = lable;
@@ -53,6 +57,38 @@ buttonLayout.forEach((lable) => {
     calculatorStyle.appendChild(button);
 })
 
+const displayScreen = document.querySelector(".display");
+
+// function updateDisplay (){
+// }
+
+
+calculatorStyle.addEventListener("click", event => {
+    console.log(event.target);
+
+    // let firstNumbers = Number(event.target.classLists.contains("numbers"));
+    // console.log(firstNumbers);
+
+    if(event.target.classList.contains("equals")){
+        console.log("Equals to Clicked!");
+    } else if(event.target.classList.contains("clear")){
+        console.log("Clear Clicked!");
+    } else if(event.target.classList.contains("operators")){
+        currentOperator = event.target.textContent;
+        currentInput += currentOperator;
+        displayScreen.textContent = currentInput;
+        console.log(currentOperator);
+    } else {
+        currentInput = currentInput + event.target.textContent;
+        displayScreen.textContent = currentInput;
+    }
+    let sepNumbers = currentInput.split(currentOperator);
+    console.log(sepNumbers);
+    let firstN = Number(sepNumbers[0]);
+    let nextN = Number(sepNumbers[1]);
+    console.log(firstN, nextN);
+    
+});
 
 //Just for backup!
 // let addision = add(first, next);
