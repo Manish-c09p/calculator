@@ -3,13 +3,13 @@ console.log("Fuck!");
 const add = (a, b) => a + b;
 const sub = (a, b) => a - b;
 const multiply = (a, b) => a * b;
-const division = (a, b) => a / b; 
+const division = (a, b) => a / b;
 
 // let first = Number(prompt("Please Enter a: "));
 // let next = Number(prompt("Please Enter b: "));
 // let opertor = prompt("Please Enter the Operator you want to use: ")
 
-function operate (a, b, operator) {
+function operate(a, b, operator) {
     if (operator === "+") {
         return add(a, b);
     } else if (operator === "-") {
@@ -18,8 +18,6 @@ function operate (a, b, operator) {
         return multiply(a, b);
     } else if (operator === "/") {
         return division(a, b);
-    } else {
-        return "Please enter valid operator!";
     }
 }
 
@@ -38,13 +36,13 @@ const buttonLayout = [
 ];
 
 const calculatorStyle = document.querySelector(".btnContainer");
-calculatorStyle.textContent = '';
+
 buttonLayout.forEach((lable) => {
     const button = document.createElement("button");
     button.textContent = lable;
     button.classList.add("btn");
 
-    if (lable === "/" || lable === "*" || lable === "-" || lable === "+"){
+    if (lable === "/" || lable === "*" || lable === "-" || lable === "+") {
         button.classList.add("operators");
     } else if (lable === "C") {
         button.classList.add("clear");
@@ -53,11 +51,11 @@ buttonLayout.forEach((lable) => {
     } else if (lable === ".") {
         button.classList.add("point");
     } else { button.classList.add("numbers"); }
-    
+
     calculatorStyle.appendChild(button);
 })
 
-const displayScreen = document.querySelector(".display");
+let displayScreen = document.querySelector(".display");
 
 // function updateDisplay (){
 // }
@@ -66,14 +64,13 @@ const displayScreen = document.querySelector(".display");
 calculatorStyle.addEventListener("click", event => {
     console.log(event.target);
 
-    // let firstNumbers = Number(event.target.classLists.contains("numbers"));
-    // console.log(firstNumbers);
-
-    if(event.target.classList.contains("equals")){
+    if (!(event.target.classList.contains("btn"))) {
+        return;
+    } else if (event.target.classList.contains("equals")) {
         console.log("Equals to Clicked!");
-    } else if(event.target.classList.contains("clear")){
+    } else if (event.target.classList.contains("clear")) {
         console.log("Clear Clicked!");
-    } else if(event.target.classList.contains("operators")){
+    } else if (event.target.classList.contains("operators")) {
         currentOperator = event.target.textContent;
         currentInput += currentOperator;
         displayScreen.textContent = currentInput;
@@ -82,14 +79,55 @@ calculatorStyle.addEventListener("click", event => {
         currentInput = currentInput + event.target.textContent;
         displayScreen.textContent = currentInput;
     }
-    let sepNumbers = currentInput.split(currentOperator);
-    console.log(sepNumbers);
-    let firstN = Number(sepNumbers[0]);
-    let nextN = Number(sepNumbers[1]);
-    console.log(firstN, nextN);
-    
-});
 
+    // Just another way of doing the same thing
+
+    // if (event.target.classList.contains("btn")){
+    //     if(event.target.classList.contains("equals")){
+    //     console.log("Equals to Clicked!");
+    // } else if(event.target.classList.contains("clear")){
+    //     console.log("Clear Clicked!");
+    // } else if(event.target.classList.contains("operators")){
+    //     currentOperator = event.target.textContent;
+    //     currentInput += currentOperator;
+    //     displayScreen.textContent = currentInput;
+    //     console.log(currentOperator);
+    // } else {
+    //     currentInput = currentInput + event.target.textContent;
+    //     displayScreen.textContent = currentInput;
+    // }
+    // } else {
+    //     return;
+    // }
+
+    // let sepNumbers = currentInput.split(currentOperator);
+    // console.log(sepNumbers);
+    // let firstN = Number(sepNumbers[0]);
+    // let nextN = Number(sepNumbers[1]);
+    // console.log(firstN, nextN);
+
+
+    if (event.target.classList.contains("equals")) {
+        let sepNumbers = currentInput.split(currentOperator);
+        console.log(sepNumbers);
+        let firstN = Number(sepNumbers[0]);
+        let nextN = Number(sepNumbers[1]);
+        console.log(firstN, nextN);
+
+        let working = operate(firstN, nextN, currentOperator);
+
+        displayScreen.textContent = working;
+        // firstN = working;
+    } else if (event.target.classList.contains("clear")) {
+        currentInput = "";
+        currentOperator = "";
+        displayScreen.textContent = 0;
+    }
+
+
+
+
+});
 //Just for backup!
 // let addision = add(first, next);
 // let substraction = sub(first, next);
