@@ -75,6 +75,7 @@ calculatorStyle.addEventListener("click", event => {
         currentInput += currentOperator;
         displayScreen.textContent = currentInput;
         console.log(currentOperator);
+        // currentOperator = "";
     } else {
         currentInput = currentInput + event.target.textContent;
         displayScreen.textContent = currentInput;
@@ -115,9 +116,11 @@ calculatorStyle.addEventListener("click", event => {
         console.log(firstN, nextN);
 
         let working = operate(firstN, nextN, currentOperator);
+        let roundNo = Math.round(working*100)/100;
 
-        displayScreen.textContent = working;
-        // firstN = working;
+        displayScreen.textContent = roundNo;
+        currentInput = roundNo;
+        currentOperator = "";
     } else if (event.target.classList.contains("clear")) {
         currentInput = "";
         currentOperator = "";
