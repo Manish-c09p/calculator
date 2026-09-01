@@ -32,7 +32,7 @@ const buttonLayout = [
     '6', '5', '4', '*',
     '3', '2', '1', '-',
     '0', '.', '=', '+',
-    'C'
+    'C', 'Del'
 ];
 
 const calculatorStyle = document.querySelector(".btnContainer");
@@ -50,6 +50,8 @@ buttonLayout.forEach((lable) => {
         button.classList.add("equals");
     } else if (lable === ".") {
         button.classList.add("point");
+    } else if (lable === "Del") {
+        button.classList.add("undo");
     } else { button.classList.add("numbers"); }
 
     calculatorStyle.appendChild(button);
@@ -76,6 +78,12 @@ calculatorStyle.addEventListener("click", event => {
         displayScreen.textContent = currentInput;
         console.log(currentOperator);
         // currentOperator = "";
+    } else if (event.target.classList.contains("undo")) {
+        currentInput = currentInput.slice(0, -1);
+        displayScreen.textContent = currentInput;
+        if (currentInput === ""){
+            displayScreen.textContent = "0";
+        }
     } else {
         currentInput = currentInput + event.target.textContent;
         displayScreen.textContent = currentInput;
@@ -115,19 +123,34 @@ calculatorStyle.addEventListener("click", event => {
         let nextN = Number(sepNumbers[1]);
         console.log(firstN, nextN);
 
+        if (currentOperator === "") {
+            if (currentInput === "") {
+                displayScreen.textContent = "0";
+                return;
+            } else {
+                displayScreen.textContent = currentInput;
+                return;
+            }
+        }
+
+        if (currentOperator === "/" && nextN === 0) {
+            displayScreen.textContent = "You suck!";
+            currentInput = "";
+            return;
+        }
+
         let working = operate(firstN, nextN, currentOperator);
-        let roundNo = Math.round(working*100)/100;
+        let roundNo = Math.round(working * 100) / 100;
 
         displayScreen.textContent = roundNo;
         currentInput = roundNo;
         currentOperator = "";
+
     } else if (event.target.classList.contains("clear")) {
         currentInput = "";
         currentOperator = "";
         displayScreen.textContent = 0;
     }
-
-
 
 
 });

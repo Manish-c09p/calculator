@@ -87,6 +87,11 @@ body {
     font-weight: 500;
 }
 
+.undo {
+    color: #5fa8a3;
+    font-weight: 500;
+}
+
 .clear:hover {
     border-color: #ff8c42;
     box-shadow: 0 0 8px #ff8c42;
@@ -95,4 +100,9 @@ body {
 .equals:hover {
     border-color: #33fff2;
     box-shadow: 0 0 8px #33fff2;
+}
+
+.undo:hover {
+    border-color : #5fa8a3;
+    box-shadow: #5fa8a3;
 }
