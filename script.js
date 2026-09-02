@@ -26,6 +26,7 @@ function operate(a, b, operator) {
 
 let currentInput = "";
 let currentOperator = "";
+let equalsClicked = false; 
 
 const buttonLayout = [
     '9', '8', '7', '/',
@@ -73,6 +74,7 @@ calculatorStyle.addEventListener("click", event => {
     } else if (event.target.classList.contains("clear")) {
         console.log("Clear Clicked!");
     } else if (event.target.classList.contains("operators")) {
+        equalsClicked = false;
         currentOperator = event.target.textContent;
         currentInput += currentOperator;
         displayScreen.textContent = currentInput;
@@ -85,6 +87,10 @@ calculatorStyle.addEventListener("click", event => {
             displayScreen.textContent = "0";
         }
     } else {
+        if(equalsClicked){
+            currentInput = "";
+            equalsClicked = false;
+        }
         currentInput = currentInput + event.target.textContent;
         displayScreen.textContent = currentInput;
     }
@@ -145,6 +151,7 @@ calculatorStyle.addEventListener("click", event => {
         displayScreen.textContent = roundNo;
         currentInput = roundNo;
         currentOperator = "";
+        equalsClicked = true;
 
     } else if (event.target.classList.contains("clear")) {
         currentInput = "";
