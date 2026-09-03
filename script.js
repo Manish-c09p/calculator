@@ -86,6 +86,14 @@ calculatorStyle.addEventListener("click", event => {
         if (currentInput === ""){
             displayScreen.textContent = "0";
         }
+    }else if(event.target.classList.contains("point")){
+        let forPoint = currentInput.split(currentOperator);
+        if(forPoint[forPoint.length - 1].includes(".")){
+            return;
+        } else {
+            currentInput = currentInput + event.target.textContent;
+            displayScreen.textContent = currentInput;
+        }
     } else {
         if(equalsClicked){
             currentInput = "";
@@ -124,7 +132,7 @@ calculatorStyle.addEventListener("click", event => {
 
     if (event.target.classList.contains("equals")) {
         let sepNumbers = currentInput.split(currentOperator);
-        console.log(sepNumbers);
+        console.log(`Array: ${sepNumbers}`);
         let firstN = Number(sepNumbers[0]);
         let nextN = Number(sepNumbers[1]);
         console.log(firstN, nextN);
