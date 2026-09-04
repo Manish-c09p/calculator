@@ -26,7 +26,7 @@ function operate(a, b, operator) {
 
 let currentInput = "";
 let currentOperator = "";
-let equalsClicked = false; 
+let equalsClicked = false;
 
 const buttonLayout = [
     '9', '8', '7', '/',
@@ -83,19 +83,31 @@ calculatorStyle.addEventListener("click", event => {
     } else if (event.target.classList.contains("undo")) {
         currentInput = currentInput.slice(0, -1);
         displayScreen.textContent = currentInput;
-        if (currentInput === ""){
+        if (currentInput === "") {
             displayScreen.textContent = "0";
         }
-    }else if(event.target.classList.contains("point")){
-        let forPoint = currentInput.split(currentOperator);
-        if(forPoint[forPoint.length - 1].includes(".")){
-            return;
+    } else if (event.target.classList.contains("point")) {
+        
+        if (currentOperator === "") {
+            if (currentInput.includes(".")) {
+                return;
+            } else {
+                currentInput = currentInput + event.target.textContent;
+                displayScreen.textContent = currentInput;
+            }
         } else {
-            currentInput = currentInput + event.target.textContent;
-            displayScreen.textContent = currentInput;
+            let forPoint = currentInput.split(currentOperator);
+            console.log(forPoint[forPoint.length - 1]);
+            if (forPoint[forPoint.length - 1].includes(".")) {
+                return;
+            } else {
+                currentInput = currentInput + event.target.textContent;
+                displayScreen.textContent = currentInput;
+            }
         }
+
     } else {
-        if(equalsClicked){
+        if (equalsClicked) {
             currentInput = "";
             equalsClicked = false;
         }
