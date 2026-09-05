@@ -1,13 +1,19 @@
-console.log("Fuck!");
+let currentInput = "";
+let currentOperator = "";
+let equalsClicked = false;
+
+const buttonLayout = [
+    '9', '8', '7', '/',
+    '6', '5', '4', '*',
+    '3', '2', '1', '-',
+    '0', '.', '=', '+',
+    'C', 'Del'
+];
 
 const add = (a, b) => a + b;
 const sub = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const division = (a, b) => a / b;
-
-// let first = Number(prompt("Please Enter a: "));
-// let next = Number(prompt("Please Enter b: "));
-// let opertor = prompt("Please Enter the Operator you want to use: ")
 
 function operate(a, b, operator) {
     if (operator === "+") {
@@ -20,18 +26,6 @@ function operate(a, b, operator) {
         return division(a, b);
     }
 }
-
-let currentInput = "";
-let currentOperator = "";
-let equalsClicked = false;
-
-const buttonLayout = [
-    '9', '8', '7', '/',
-    '6', '5', '4', '*',
-    '3', '2', '1', '-',
-    '0', '.', '=', '+',
-    'C', 'Del'
-];
 
 const calculatorStyle = document.querySelector(".btnContainer");
 
@@ -57,91 +51,16 @@ buttonLayout.forEach((lable) => {
 
 let displayScreen = document.querySelector(".display");
 
-
 calculatorStyle.addEventListener("click", event => {
-    console.log(event.target);
 
     if (!(event.target.classList.contains("btn"))) {
         return;
     } else if (event.target.classList.contains("equals")) {
-        console.log("Equals to Clicked!");
-    } else if (event.target.classList.contains("clear")) {
-        console.log("Clear Clicked!");
-    } else if (event.target.classList.contains("operators")) {
-        equalsClicked = false;
-        currentOperator = event.target.textContent;
-        currentInput += currentOperator;
-        displayScreen.textContent = currentInput;
-        console.log(currentOperator);
-        // currentOperator = "";
-    } else if (event.target.classList.contains("undo")) {
-        currentInput = currentInput.slice(0, -1);
-        displayScreen.textContent = currentInput;
-        if (currentInput === "") {
-            displayScreen.textContent = "0";
-        }
-    } else if (event.target.classList.contains("point")) {
-        
-        if (currentOperator === "") {
-            if (currentInput.includes(".")) {
-                return;
-            } else {
-                currentInput = currentInput + event.target.textContent;
-                displayScreen.textContent = currentInput;
-            }
-        } else {
-            let forPoint = currentInput.split(currentOperator);
-            console.log(forPoint[forPoint.length - 1]);
-            if (forPoint[forPoint.length - 1].includes(".")) {
-                return;
-            } else {
-                currentInput = currentInput + event.target.textContent;
-                displayScreen.textContent = currentInput;
-            }
-        }
-
-    } else {
-        if (equalsClicked) {
-            currentInput = "";
-            equalsClicked = false;
-        }
-        currentInput = currentInput + event.target.textContent;
-        displayScreen.textContent = currentInput;
-    }
-
-    // Just another way of doing the same thing
-
-    // if (event.target.classList.contains("btn")){
-    //     if(event.target.classList.contains("equals")){
-    //     console.log("Equals to Clicked!");
-    // } else if(event.target.classList.contains("clear")){
-    //     console.log("Clear Clicked!");
-    // } else if(event.target.classList.contains("operators")){
-    //     currentOperator = event.target.textContent;
-    //     currentInput += currentOperator;
-    //     displayScreen.textContent = currentInput;
-    //     console.log(currentOperator);
-    // } else {
-    //     currentInput = currentInput + event.target.textContent;
-    //     displayScreen.textContent = currentInput;
-    // }
-    // } else {
-    //     return;
-    // }
-
-    // let sepNumbers = currentInput.split(currentOperator);
-    // console.log(sepNumbers);
-    // let firstN = Number(sepNumbers[0]);
-    // let nextN = Number(sepNumbers[1]);
-    // console.log(firstN, nextN);
-
-
-    if (event.target.classList.contains("equals")) {
         let sepNumbers = currentInput.split(currentOperator);
-        console.log(`Array: ${sepNumbers}`);
+        // console.log(`Array: ${sepNumbers}`);
         let firstN = Number(sepNumbers[0]);
         let nextN = Number(sepNumbers[1]);
-        console.log(firstN, nextN);
+        // console.log(firstN, nextN);
 
         if (currentOperator === "") {
             if (currentInput === "") {
@@ -172,6 +91,43 @@ calculatorStyle.addEventListener("click", event => {
         currentOperator = "";
         displayScreen.textContent = 0;
     }
+    else if (event.target.classList.contains("operators")) {
+        equalsClicked = false;
+        currentOperator = event.target.textContent;
+        currentInput += currentOperator;
+        displayScreen.textContent = currentInput;
+    } else if (event.target.classList.contains("undo")) {
+        currentInput = currentInput.slice(0, -1);
+        displayScreen.textContent = currentInput;
+        if (currentInput === "") {
+            displayScreen.textContent = "0";
+        }
+    } else if (event.target.classList.contains("point")) {
 
+        if (currentOperator === "") {
+            if (currentInput.includes(".")) {
+                return;
+            } else {
+                currentInput = currentInput + event.target.textContent;
+                displayScreen.textContent = currentInput;
+            }
+        } else {
+            let forPoint = currentInput.split(currentOperator);
+            if (forPoint[forPoint.length - 1].includes(".")) {
+                return;
+            } else {
+                currentInput = currentInput + event.target.textContent;
+                displayScreen.textContent = currentInput;
+            }
+        }
+
+    } else {
+        if (equalsClicked) {
+            currentInput = "";
+            equalsClicked = false;
+        }
+        currentInput = currentInput + event.target.textContent;
+        displayScreen.textContent = currentInput;
+    }
 
 });
