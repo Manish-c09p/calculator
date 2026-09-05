@@ -21,9 +21,6 @@ function operate(a, b, operator) {
     }
 }
 
-// let calculate = operate(first, next, opertor);
-// console.log(calculate);
-
 let currentInput = "";
 let currentOperator = "";
 let equalsClicked = false;
@@ -59,9 +56,6 @@ buttonLayout.forEach((lable) => {
 })
 
 let displayScreen = document.querySelector(".display");
-
-// function updateDisplay (){
-// }
 
 
 calculatorStyle.addEventListener("click", event => {
@@ -181,13 +175,3 @@ calculatorStyle.addEventListener("click", event => {
 
 
 });
-//Just for backup!
-// let addision = add(first, next);
-// let substraction = sub(first, next);
-// let multiplication = multiply(first, next);
-// let divide = division(first, next);
-
-// console.log(addision);
-// console.log(substraction);
-// console.log(multiplication);
-// console.log(divide);
